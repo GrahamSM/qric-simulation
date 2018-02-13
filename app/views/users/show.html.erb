@@ -3,13 +3,14 @@
   <% flash.each do |k, v| %>
     <div id="error"><%= v %></div>
   <% end %>
-
+<!-- Display team name, cash balance, and total portolio value -->
   <div class="cards">
     <div class='card' id="snapshot">
       <span class="prop-title"><%=@team.team_name%></span>
       <span class="prop-attr">Cash: <%=number_to_currency(@team.cash_balance, :unit => "$", :precision => 0)%></span>
       <span class="prop-attr">Portfolio Value: <%=number_to_currency(@totalPropertyValue, :unit => "$", :precision => 0)%></span>
     </div>
+<!-- For every property owned by a user, display the property and an option to develop if the property is developable     -->
     <% @properties.each do |prop| %>
       <div class='card' background="http://www.nallaneramproperties.com/wp-content/uploads/2016/10/property-connect-home.jpg">
         <span class="prop-title"><%=prop.name%></span>
@@ -18,7 +19,8 @@
           <span class="prop-dev">Development Cost: <%=number_to_currency(prop.development.cost, :unit => "$", :precision => 0)%></span>
         <% end %>
         <span class="prop-type"><%=prop.property_type.description%></span>
-        <%if prop.development && !prop.developed and !prop.in_development%>
+<!-- If available, display option to develop property. Directs to custom develop route.  -->
+        <%if prop.development && !prop.developed && !prop.in_development%>
           <%= link_to 'Develop', develop_path(prop.id), class: "btn" %>
         <%end%>
       </div>

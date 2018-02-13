@@ -13,9 +13,11 @@ class Property < ApplicationRecord
   	if !(self.development)
   		message << 'No Development Found'
   	else
+      # We already know the team can drop their cash balance
       @team.drop_cash_balance(self.development.cost)
       @team.save!
       self.adjust_property_value
+      # TODO: Remove in_development field
       self.in_development = true
       self.developed = true
       self.development.used = true

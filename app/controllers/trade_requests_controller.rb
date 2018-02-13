@@ -33,15 +33,18 @@ class TradeRequestsController < ApplicationController
   # POST /trade_requests.json
   def create
     @trade_request = TradeRequest.new
+    # Store parameters from form
     t_r = params[:trade_request]
     @trade_request.offeror_id = t_r[:offeror_id]
     @trade_request.offeree_id = t_r[:offeree_id]
     @trade_request.outgoing_cash = t_r[:outgoing_cash]
     @trade_request.incoming_cash = t_r[:incoming_cash]
     @trade_request.completed = false
+    # Set the response turn to the opposite party in the trade request
     @trade_request.response_turn = TradeRequest.getOtherParty(@trade_request, current_user.team_id)
     @trade_request.outgoing_properties = params[:outgoing_property]
     @trade_request.incoming_properties = params[:incoming_property]
+    # TODO: remove can trade outgoing and incoming logic
     can_trade_outgoing = TradeRequest.tradeable(@trade_request.outgoing_properties)
     can_trade_incoming = TradeRequest.tradeable(@trade_request.incoming_properties)
     if can_trade_outgoing && can_trade_incoming && @trade_request.cash_valid
@@ -51,7 +54,7 @@ class TradeRequestsController < ApplicationController
         redirect_to trade_requests_path, notice: "Specify properties or cash form each team"
       end
     else
-      flash[:error] = "Invalid cash specified!"
+      flash[:error] = "Invalid offers!"
       redirect_to trade_requests_path
     end
   end

@@ -113,7 +113,7 @@ class TradeRequest < ApplicationRecord
 		end
 	end
 
-	#Returns the id of the opposite party for a given trade request.
+	#Returns the id of the opposite party for a given trade request. Self is used because we are operating on this instance. 
 	def self.getOtherParty(tr, id)
 		(tr.offeror_id == id) ? tr.offeree_id : tr.offeror_id
 	end

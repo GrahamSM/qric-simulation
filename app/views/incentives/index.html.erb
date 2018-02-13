@@ -1,8 +1,9 @@
 <%= render "sidebar" %>
 <div class='content-container'>
 <h1>Incentives</h1>
-
+<!-- Note: All incentives for each team are stored in a @calculations hash and passed in to this view -->
 <br>
+<!-- Setup table header -->
   <div class="table">
       <div class="row header blue">
         <div class="cell">
@@ -11,6 +12,7 @@
         <div class="cell">
           Value
         </div>
+        <!-- TODO: Iterate over teams rather than entering them manually! -->
         <div class="cell">
           Team 1
         </div>
@@ -44,8 +46,10 @@
           <div class="cell">
           <%=number_to_currency(incentive.value, :unit => "$")%>
           </div>
+          <!-- Sort calculations by team -->
           <%@calculations = Hash[@calculations.sort_by {|k,v| k.to_s.to_i }]%>
           <% @calculations.each do |team,values| %>
+            <!-- Display the value of each incentive for each team -->
             <div class="cell">
               <%= incentive.incentive_type == 1 ? values[incentive.calculation_key.to_sym] :  number_to_currency(values[incentive.calculation_key.to_sym])%>
             </div>

@@ -8,13 +8,11 @@ Rails.application.routes.draw do
   post '/users' => 'users#create'
   get '/users' => 'users#show'
 
-  # get '/incentives' => 'incentives#index' TODO: Do we need this in the db?
-
   resources :trade_requests
+
   get "accept/:id" => "trade_requests#accept", :as => "accept"
 
   resources :teams
-  # get '/teams' => 'teams#index'
 
   resources :properties
   get "develop/:id" => "users#develop", :as => "develop"
@@ -36,7 +34,5 @@ Rails.application.routes.draw do
   end
 
   root "sessions#new"
-
-
 
 end

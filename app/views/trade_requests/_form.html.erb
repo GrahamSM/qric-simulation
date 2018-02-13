@@ -11,10 +11,10 @@
         </ul>
       </div>
     <% end %>
-
+    <!-- Values of trading parties -->
     <%= f.hidden_field :offeror_id, :value => current_user.team_id%>
     <%= f.hidden_field :offeree_id, :value => @team_id%>
-
+    <!-- Display available properties of offeror and provide option to offer cash -->
     <div class="new-trade">
       <div class="trade-container" id="left">
         <div class="new-trade" id="outgoing-items">
@@ -22,12 +22,12 @@
             <p id="offer-heading">Your Offer</p>
             <li>
               <% current_user.team.properties.each do |prop| %>
-                <% if !prop.developed %>
+                <!-- <% if !prop.developed %> -->
                   <div id="property-option">
                     <%= check_box_tag "outgoing_property[]", prop.id %>
                     <%= label_tag 'outgoing_property', prop.name, :class => 'prop-label' %>
                   </div>
-                <%end%>
+                <!-- <%end%> -->
               <% end %>
             </li>
           </ul>
@@ -37,6 +37,7 @@
           <%= f.text_field :outgoing_cash, :class =>'mat-input', :id =>'cash-outgoing'%><br />
         </div>
       </div>
+      <!-- Display available properties of offeree and provide option to request cash -->
       <div class="trade-container" id="right">
         <div class="new-trade" id="requested-items">
           <ul>
@@ -62,7 +63,7 @@
 
     <%= f.submit 'Submit Request', class: 'submit-btn' %>
     <div class='back-btn'>
-      <%= link_to "Back".html_safe, trade_requests_path, :class => 'back-btn' %>
+      <%= link_to "Back", trade_requests_path, :class => 'back-btn' %>
     </div>
 
 

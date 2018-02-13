@@ -30,20 +30,27 @@
         Actions
       </div>
     </div>
+    <!-- For every trade request in which the current users team is involved -->
     <% TradeRequest.where(offeror_id: @team.id).or(TradeRequest.where(offeree_id: @team.id)).each do |trade_request| %>
       <div class="row">
          <div class="cell">
-          <%= trade_request.offeror_id != @team.id ?trade_request.offeror_id: trade_request.offeree_id%>
+           <!-- Get counterpart's team id -->
+           <!-- TODO: Display team name -->
+          <%= trade_request.offeror_id != @team.id ? trade_request.offeror_id : trade_request.offeree_id%>
         </div>
+        <!-- Properties offered -->
        <div class="cell">
           <%= trade_request.offeror_id == @team.id ? trade_request.outgoing_properties ? trade_request.outgoing_properties.length : nil : trade_request.incoming_properties ? trade_request.incoming_properties.length : nil%>
         </div>
+        <!-- Cash offered -->
        <div class="cell">
           <%= trade_request.offeror_id == @team.id ? trade_request.outgoing_cash ? number_to_currency(trade_request.outgoing_cash, :unit => "$") : nil : trade_request.incoming_cash ? number_to_currency(trade_request.incoming_cash) : nil%>
         </div>
+        <!-- Properties demanded -->
        <div class="cell">
           <%= trade_request.offeror_id == @team.id ? trade_request.incoming_properties ? trade_request.incoming_properties.length : nil : trade_request.outgoing_properties ? trade_request.outgoing_properties.length : nil%>
         </div>
+        <!-- Cash demanded -->
        <div class="cell">
           <%= trade_request.offeror_id == @team.id ? trade_request.incoming_cash ? number_to_currency(trade_request.incoming_cash, :unit => "$") : nil : trade_request.outgoing_cash ? number_to_currency(trade_request.outgoing_cash) : nil%>
         </div>
@@ -62,6 +69,7 @@
               <%= link_to 'Decline Offer', trade_request, method: :delete %>
             <% end %>
           <% end %>
+          <!-- Always provide option to show -->
           <%= link_to 'Show', trade_request_path(trade_request.id) %>
         </div>
       </div>
@@ -73,14 +81,10 @@
   <h4>Select a Team to Trade With</h4>
   <div class="team-links">
     <% Team.order(:id).each do |team| %>
+      <!-- Can't trade with self -->
       <% if team.id != current_user.team_id %>
         <%= link_to "Team " + team.id.to_s, new_trade_request_path(:id => team.id), :data_hover => "team_links", :class => 'team-trade-btn'%>
       <% end %>
     <% end %>
   </div>
 </div>
-
-
-<!-- TODO: Must edit trade_requests in the db to handle multiple incoming and outgoing properties -->
-<!-- TODO: Create a request interface that allows users to submit requests/offers including multiple properties -->
-<!-- TODO: Create a panel that let's users view current 'active' requests, and completed trades. Active requests can be accepted, declined, or edited (counter-offer) -->

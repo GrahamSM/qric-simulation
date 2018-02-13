@@ -63,11 +63,8 @@ class Admin::PropertiesController < Admin::ApplicationController
           prop.value = prop.value*(1+values[0])
           prop.save!
         elsif prop.property_type_id == 2
-           binding.pry
            prop.value = prop.value*(1+values[1])
-           binding.pry
            prop.save!
-           binding.pry
         elsif prop.property_type_id == 3
           prop.value = prop.value*(1+values[2])
           prop.save!
@@ -191,6 +188,7 @@ class Admin::PropertiesController < Admin::ApplicationController
     most_mr_props = []
     most_office_props = []
     most_retail_props = []
+    #Find incentive achievements for each team in the game
     Team.all.each do |team|
       @incentives = team.calcIncentives();
       @incentives_list = Incentive.all
@@ -252,7 +250,8 @@ class Admin::PropertiesController < Admin::ApplicationController
       most_office_props << @incentives[:office_properties]
       most_retail_props << @incentives[:retail_properties]
     end
-    lowest_end_cash_team = lowest_end_cash.rindex(lowest_end_cash.max)+1
+    #Store the index of the team for each achieved incentive
+    lowest_end_cash_team = lowest_end_cash.rindex(lowest_end_cash.min)+1
     highest_end_prop_team = highest_end_prop.rindex(highest_end_prop.max)+1
     most_aquisitions_team = most_acquisitions.rindex(most_acquisitions.max)+1
     most_developments_team = most_developments.rindex(most_developments.max)+1
@@ -261,6 +260,7 @@ class Admin::PropertiesController < Admin::ApplicationController
     most_mr_props_team = most_mr_props.rindex(most_mr_props.max)+1
     most_office_props_team = most_office_props.rindex(most_office_props.max)+1
     most_retail_props_team = most_retail_props.rindex(most_retail_props.max)+1
+    #Apply appropriate rewards to each team who achieved a game-level incentive
     x1 = Team.all.where(:id => lowest_end_cash_team)[0]
     x1.cash_balance += Incentive.all.where(:calculation_key => "cashBalance")[0].value
     x1.save!

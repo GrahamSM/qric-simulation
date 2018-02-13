@@ -48,11 +48,11 @@ class PropertiesController < ApplicationController
     flash = {}
     if @property.development
       if @property.development.used
-        flash[:error] = "You have already developed this property" #TODO not displaying
+        flash[:error] = "You have already developed this property"
         render 'show'
         redirect_to users_path
       elsif !(Team.find(current_user.team_id).can_drop_cash_balance(@property.development.cost))
-        flash[:error] = "You cannot afford to develop this property" #TODO not displaying
+        flash[:error] = "You cannot afford to develop this property" 
         render 'show'
         redirect_to users_path
       else

@@ -20,21 +20,13 @@ User.create!([{username: "jaron.kaller", password: "qric-admin-1", password_conf
 User.create!([{username: "monica.carnicelli", password: "qric-admin-2", password_confirmation: "qric-admin-2", team_id: 1, admin: true}])
 
 User.create!([{username: "team.one", password: "4TGNWtjg", password_confirmation: "4TGNWtjg", team_id: 1}])
-
 User.create!([{username: "team.two", password: "aHyHmxgU", password_confirmation: "aHyHmxgU",team_id: 2}])
-
 User.create!([{username: "team.three", password: "bWVK8JQj", password_confirmation: "bWVK8JQj",team_id: 3}])
-
 User.create!([{username: "team.four", password: "8NPtVyWK", password_confirmation: "8NPtVyWK",team_id: 4}])
-
 User.create!([{username: "team.five", password: "LkGkr9M2", password_confirmation: "LkGkr9M2",team_id: 5}])
-
 User.create!([{username: "team.six", password: "EprLEv2x", password_confirmation: "EprLEv2x",team_id: 6}])
-
 User.create!([{username: "team.seven", password: "aTXP9d3s", password_confirmation: "aTXP9d3s",team_id: 7}])
-
 User.create!([{username: "team.eight", password: "hkvD8ksr", password_confirmation: "hkvD8ksr",team_id: 8}])
-
 
 PropertyType.create!([{ description: "Office" }])
 PropertyType.create!([{ description: "Industrial" }])
@@ -158,9 +150,6 @@ Development.create!([{cost: 100000, used: false, value: 212500, development_time
 Development.create!([{cost: 30000, used: false, value: 170000, development_time: 1, property_id: 27}])
 Development.create!([{cost: 6000, used: false, value: 51000, development_time: 1, property_id: 28}])
 Development.create!([{cost: 125000, used: false, value: 42000, development_time: 1, property_id: 29}])
-
-
-
 
 i = 1
 Property.all.each do |prop|
